@@ -1,4 +1,5 @@
 from university_collaborations import Department, Group
+from study import Subject
 
 import typing
 
@@ -20,6 +21,9 @@ class University(Location):
     def drop_group(self, group:Group):
         self.groups.remove(group)
 
+    def add_group_subjects(self, subjects: typing.List[Subject], group: Group):
+        group.subjects = subjects
+
 
 class Dormitory(Location):
     def __init__(self):
@@ -29,7 +33,4 @@ class Dormitory(Location):
 class OuterWorld(Location):
     def __init__(self):
         super().__init__('outer world')
-
-
-
 

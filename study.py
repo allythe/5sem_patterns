@@ -1,6 +1,6 @@
 import typing
 
-from humans import Student
+from humans import Student, Teacher
 import datetime
 
 
@@ -18,9 +18,10 @@ class Task:
         pass
 
 
-class Subject:
-    def __init__(self, tasks : typing.List[Task]):
+class Subject: #откуда предмет знает свой семестр или тау 4 семестра и тау 5 семестра это тупо разные предметы
+    def __init__(self, tasks: typing.List[Task], teacher: Teacher):
         self.tasks = tasks
+        self.teacher = teacher
 
 
 class Lesson:
