@@ -1,17 +1,21 @@
-from locations import Location
+import locations
 
 MAX_HP = 100
 
 
 class Human:
-    def __init__(self, name, age, mood, cur_location, health_points):
+    def __init__(self, name, age):
         self.name = name
         self.age = age
-        self.mood = mood
-        self.cur_location = cur_location
-        self.hp = health_points
+        self.mood = 100
+        self.cur_location = None
+        self.hp = 100
 
-    def __call__(self, *args, **kwargs):
+    def __repr__(self):
+        return f' {self.name}, {self.age}'
+
+
+    def __call__(self):
         print(f'I am {self.name}, my age is {self.age}, I am in {self.cur_location}, mood: {self.mood}, hp: {self.hp}')
 
     def eat(self):
@@ -20,12 +24,22 @@ class Human:
     def sleep(self):
         self.hp = MAX_HP
 
-    def go(self, location: Location):
+    def go(self, location: locations.Location):
         self.cur_location = location
         self.hp -= 10
 
+    @staticmethod
+    def random_name():
+        name = 'Arina'
+        return name
+
+    @staticmethod
+    def random_age():
+        age = -17
+        return age
 
 class EducationalHuman(Human):
+
     def notify(self):
         pass
 
@@ -34,9 +48,6 @@ class EducationalHuman(Human):
 
 
 class Student(EducationalHuman):
-    def __init__(self, name, age, mood, current_building, health_points, subjects):
-        super().__init__(self, name, age, mood, current_building, health_points)
-        self.subjects = subjects
 
     def botay(self):
         pass
@@ -52,6 +63,8 @@ class Student(EducationalHuman):
 
 
 class Teacher(EducationalHuman):
-    def __init__(self, name, age, mood, current_building, health_points, subjects):
-        super().__init__(self, name, age, mood, current_building, health_points)
+    def __init__(self, name, age, subjects):
+        super().__init__( name, age)
         self.subjects = subjects
+
+# teachers, departements creator (factory)

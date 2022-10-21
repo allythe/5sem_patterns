@@ -1,32 +1,18 @@
-from humans import Student, Teacher
-from study import Subject
+import study
 
+import random
 import typing
-import enum
+class Teacher : pass
+class Student : pass
 
-
-class Field(enum.Enum):
-    informatics = 0
-    physics = 1
 
 class Group:
-    def __init__(self, students: typing.List[Student], subjects: typing.List[Subject],
-                 field: Field, teachers: typing.List[Teacher], course: int):  # field - enum class, а надо ли?
+    def __init__(self, students: typing.List[Student]):  # field - enum class, а надо ли?
         self.students = students
-        self.subjects = subjects  # может лучше сделать список lesson???
 
-        self.field = field
-        if course > 10 | course < 1:
-            RuntimeError('Invalid course number, it should be between 1 and 10')
-
-        self.course = course
-        self.teachers = teachers
-
-    def get_field(self):
-        return self.field
-
-    def get_course(self):
-        return self.course
+    def __repr__(self):
+        students = ''.join([str(i) for i in self.students])
+        return f'I am group, I have {len(self.students)} students, they are: {students} '
 
     def add_student(self, student: Student):
         self.students.append(student)
@@ -34,14 +20,18 @@ class Group:
     def drop_student(self, student: Student):
         self.students.remove(student)
 
-    def subscr_stud_subj(self, student: Student, subject: Subject):
+    def subscr_stud_subj(self, student: Student, subject: study.Subject):
         student.subjects.append(subject)
 
 
 class Department:
-    def __init__(self, subjects: typing.List[Subject], teachers: typing.List[Teacher]):
-        self.subjects = subjects
-        self.teacher = teachers  #зачем вообще эти поля
+    def __init__(self,  teachers: typing.List[Teacher]):
+        self.teachers = teachers  #зачем вообще эти поля
 
-    def appoint_teacher(self, sbj: Subject, tch: Teacher):
-        sbj.teacher = tch
+    def __repr__(self):
+        return f'I am department, I have {len(self.teachers)} teachers'
+
+    def appoint_teacher(self, group: Group):
+        for sbj in group.subjects:
+            if sbj in self.subjects:
+                sbj.teacher = random.choice(self.teachers)

@@ -1,14 +1,11 @@
-from humans import Human
-from locations import Dormitory
+import humans
+from locations import University
 
 
 def main():
-    dorm = Dormitory()
-
-    h = Human('Vasya', 18, 'good', 'dorm', 10)
-    h()
-    h.go(dorm)
-    h()
+    u = University()
+    u.start()
+    print(u)
 
 
 if __name__ == '__main__':

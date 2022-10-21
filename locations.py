@@ -1,8 +1,10 @@
-from university_collaborations import Department, Group
-from study import Subject
+import university_collaborations as uc
+import factories as fct
+import locations as loc
+import study as s
 
 import typing
-
+import humans as hm
 
 class Location:
     def __init__(self, location_type):
@@ -10,19 +12,22 @@ class Location:
 
 
 class University(Location):
-    def __init__(self, departments: typing.List[Department], groups: typing.List[Group]):
+    def __init__(self):
         super().__init__('university')
-        self.departments = departments
-        self.groups = groups
 
-    def add_group(self, group:Group):
-        self.groups.append(group)
+        students = fct.StudentFactory().create_n(5)
+        teachers = fct.TeacherFactory().create_n(2)
 
-    def drop_group(self, group:Group):
-        self.groups.remove(group)
+        self.groups = fct.GroupFactory(students).create_n(2)
+        self.departments = fct.DepartmentFactory(teachers).create_n(1)
 
-    def add_group_subjects(self, subjects: typing.List[Subject], group: Group):
-        group.subjects = subjects
+    def __repr__(self):
+        groups = '\n'.join([str(i) for i in self.groups])
+        departments = '\n'.join([str(i) for i in self.departments])
+        return f'I am university, I have {len(self.groups)} groups, they are: \n{groups} \nI have {len(self.departments)} departments, they are: \n{departments}'
+
+    def start(self):
+        pass
 
 
 class Dormitory(Location):
