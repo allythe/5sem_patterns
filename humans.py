@@ -14,7 +14,6 @@ class Human:
     def __repr__(self):
         return f' {self.name}, {self.age}'
 
-
     def __call__(self):
         print(f'I am {self.name}, my age is {self.age}, I am in {self.cur_location}, mood: {self.mood}, hp: {self.hp}')
 
@@ -38,8 +37,8 @@ class Human:
         age = -17
         return age
 
-class EducationalHuman(Human):
 
+class EducationalHuman(Human):
     def notify(self):
         pass
 
@@ -63,8 +62,8 @@ class Student(EducationalHuman):
 
 
 class Teacher(EducationalHuman):
-    def __init__(self, name, age, subjects):
-        super().__init__( name, age)
+    def __init__(self, name, age, subjects = None):
+        super().__init__(name, age)
         self.subjects = subjects
 
 # teachers, departements creator (factory)

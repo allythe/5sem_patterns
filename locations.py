@@ -6,6 +6,7 @@ import study as s
 import typing
 import humans as hm
 
+
 class Location:
     def __init__(self, location_type):
         print(f'I am a location, my type is:{location_type}, created!')

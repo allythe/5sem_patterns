@@ -2,6 +2,8 @@ import study
 
 import random
 import typing
+import factories
+
 class Teacher : pass
 class Student : pass
 
@@ -26,12 +28,17 @@ class Group:
 
 class Department:
     def __init__(self,  teachers: typing.List[Teacher]):
-        self.teachers = teachers  #зачем вообще эти поля
+        self.teachers = teachers
+
+        subjects = factories.SubjectFactory(random.choice(self.teachers)).create_n(2)
+        self.subjects = subjects
 
     def __repr__(self):
-        return f'I am department, I have {len(self.teachers)} teachers'
+        subjects = '\t'.join([str(i) for i in self.subjects])
+        return f'I am department, I have {len(self.teachers)} teachers, I have \n \t{subjects}'
 
     def appoint_teacher(self, group: Group):
-        for sbj in group.subjects:
-            if sbj in self.subjects:
-                sbj.teacher = random.choice(self.teachers)
+        for les in group.lessons:
+            if les.subject in self.subjects:
+                les.subject.teacher = random.choice(self.teachers)
+
