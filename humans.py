@@ -62,8 +62,11 @@ class Student(EducationalHuman):
 
 
 class Teacher(EducationalHuman):
-    def __init__(self, name, age, subjects = None):
+    def __init__(self, name, age, subjects):
         super().__init__(name, age)
         self.subjects = subjects
+
+    def can_teach(self, subject):
+        return subject in self.subjects
 
 # teachers, departements creator (factory)

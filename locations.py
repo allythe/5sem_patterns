@@ -20,7 +20,7 @@ class University(Location):
         teachers = fct.TeacherFactory().create_n(2)
 
         self.groups = fct.GroupFactory(students).create_n(2)
-        self.departments = fct.DepartmentFactory(teachers).create_n(1)
+        self.departments = fct.DepartmentFactory(teachers).create_n(2)
 
     def __repr__(self):
         groups = '\n'.join([str(i) for i in self.groups])
@@ -28,7 +28,7 @@ class University(Location):
         return f'I am university, I have {len(self.groups)} groups, they are: \n{groups} \nI have {len(self.departments)} departments, they are: \n{departments}'
 
     def start(self):
-        pass
+        [g.set_subjects(d.get_subjects(5)) for g in self.groups for d in self.departments ]
 
 
 class Dormitory(Location):

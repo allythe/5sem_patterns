@@ -1,6 +1,7 @@
 import humans as hm
 import university_collaborations as uc
 import study as st
+import random
 
 
 class Factory:
@@ -48,19 +49,26 @@ class DepartmentFactory(Factory):
 
 class TeacherFactory(Factory):
     def create(self):
-        return hm.Teacher(hm.Human.random_name(), hm.Human.random_age())
+        return hm.Teacher(hm.Human.random_name(), hm.Human.random_age(), [st.Math, st.Physics])
 
 
 class SubjectFactory(Factory):
-    def __init__(self, teacher):
+    def __init__(self, teachers, subject):
         super().__init__()
-        self.teacher = teacher
+        self.teachers = teachers
+        self.subject = subject
+
+    def find_teachers(self):
+        return [t for t in self.teachers if t.can_teach]
 
     def create(self):
-        return st.Subject(self.teacher)
+        return self.subject(random.choice(self.find_teachers()))
 
 
 class TasksFactory(Factory):
+    def __init__(self, subject):
+        self.subject = subject
+
     def create(self):
-        return st.Task(st.Task.random_name())
+        return st.Task(self.subject.name, self.subject.course)
 

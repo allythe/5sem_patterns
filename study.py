@@ -8,9 +8,9 @@ class Teacher: pass
 
 
 class Task:
-    def __init__(self, name):
+    def __init__(self, name, course):
         self.name = name
-        pass
+        self.course = course
 
     def __repr__(self):
         return f'I am a task, my name is {self.name} \n'
@@ -24,21 +24,29 @@ class Task:
     def submit(self):
         pass
 
-    @staticmethod
-    def random_name():
-        name = 'Math'
-        return name
-
 
 class Subject: #откуда предмет знает свой семестр или тау 4 семестра и тау 5 семестра это тупо разные предметы
-    def __init__(self, teacher: Teacher, tasks: typing.List[Task] = None):
+    def __init__(self, teacher: Teacher, course = 1, tasks: typing.List[Task] = None):
         self.teacher = teacher
-        tasks = fct.TasksFactory().create_n(1)
-        self.tasks = tasks
+        self.course = course
+        self.name == __class__.__name__
+        self.tasks = fct.TasksFactory(self).create_n(1)
 
     def __repr__(self):
         tasks = '\n'.join([str(i) for i in self.tasks])
-        return f'I am a subject,\n \t\t my teacher is {str(self.teacher)} \n \tI have {len(self.tasks)} tasks, they are: \n \t\t {tasks}'
+        return f'I am a subject, my name is: {self.name}\n \t\t my teacher is {str(self.teacher)} \n \tI have {len(self.tasks)} tasks, they are: \n \t\t {tasks}'
+
+
+class Math(Subject):
+    def __init__(self, teacher: Teacher, course = 1, tasks: typing.List[Task] = None):
+        self.name = "Mathematics"
+        super().__init__(teacher, course, tasks)
+
+
+class Physics(Subject):
+    def __init__(self, teacher: Teacher, course=1, tasks: typing.List[Task] = None):
+        self.name = "Physics"
+        super().__init__(teacher, course, tasks)
 
 
 class Lesson:
